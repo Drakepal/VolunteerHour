@@ -13,12 +13,13 @@ struct Movie: Identifiable, Codable {
     var title: String
     var description: String
     var year: String
-    
+    var minutes: String
     
     enum CodingKeys: String, CodingKey {
         case id
         case title
         case description
         case year
+        case minutes
     }
 }

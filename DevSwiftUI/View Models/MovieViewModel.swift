@@ -17,7 +17,7 @@ class MovieViewModel: ObservableObject {
     
     private var cancellabels = Set<AnyCancellable>()
     
-    init(movie: Movie = Movie(title: "", description: "", year: "")) {
+    init(movie: Movie = Movie(title: "", description: "", year: "", minutes: "")) {
         self.movie = movie
         
         self.$movie

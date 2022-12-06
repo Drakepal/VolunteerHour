@@ -44,21 +44,22 @@ struct MovieEditView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Movie")) {
+                Section(header: Text("Listing")) {
                     TextField("Title", text: $viewModel.movie.title)
-                    TextField("Year", text: $viewModel.movie.year)
+                    TextField("Hours", text: $viewModel.movie.year)
+                    TextField("Minutes", text: $viewModel.movie.minutes)
                 }
-                Section(header: Text("Description")) {
+                Section(header: Text("About")) {
                     TextField("Description", text: $viewModel.movie.description)
                 }
                 if mode == .edit {
                     Section {
-                        Button("Delete book") { self.presentActionSheet.toggle() }
+                        Button("Delete Listing") { self.presentActionSheet.toggle() }
                             .foregroundColor(.red)
                     }
                 }
             }
-            .navigationTitle(mode == .new ? "New Movie" : viewModel.movie.title)
+            .navigationTitle(mode == .new ? "New Listing" : viewModel.movie.title)
             .navigationBarTitleDisplayMode(mode == .new ? .inline : .large)
             .navigationBarItems(
             leading: cancelButton,
@@ -67,7 +68,7 @@ struct MovieEditView: View {
             .actionSheet(isPresented: $presentActionSheet) {
                 ActionSheet(title: Text("Are you sure?"),
                             buttons: [
-                                .destructive(Text("Delete Movie"),
+                                .destructive(Text("Delete Listing"),
                                              action: { self.handleDeleteTapped() }),
                                 .cancel()
                             ])
@@ -94,7 +95,7 @@ struct MovieEditView: View {
 
 struct MovieEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let movie = Movie(title: "Sample Title", description: "Sample Description", year: "2022")
+        let movie = Movie(title: "Sample Title", description: "Sample Description", year: "2022", minutes: "32")
         let movieViewModel = MovieViewModel(movie: movie)
         return MovieEditView(viewModel: movieViewModel, mode: .edit)
         

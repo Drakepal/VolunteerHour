@@ -24,13 +24,54 @@ struct ContentView: View {
                 Text(movie.title)
                     .font(.headline)
                 //Text(movie.description)
-                    //.font(.subheadline)
-                Text(movie.year)
-                    .font(.subheadline)
+                //.font(.subheadline)
+                if movie.year == "" && movie.minutes >= "2" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("Minutes")
+                    }
+                } else if movie.year == "1" && movie.minutes >= "2" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hour")
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
+                } else if movie.year >= "2" && movie.minutes >= "2" {
+                    HStack {
+                        Text(movie.year)
+                            .font(.subheadline)
+                        if movie.year >= "2" {
+                            Text("Hours")
+                        }
+                        Text(movie.minutes)
+                        if movie.minutes >= "2" {
+                            Text("Minutes")
+                        }
+                    }
+                
+                
+                } else if movie.year == "" && movie.minutes == "1" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("minute")
+                    }
+                }
+                
+//                    HStack {
+//                        Text(movie.year)
+//                            .font(.subheadline)
+//                        if movie.year >= "2" {
+//                            Text("Hours")
+//                        } else {
+//                            Text("Hour")
+//                        }
+//                    }
+                }
             }
         }
-    }
     
+
     var body: some View {
         NavigationView {
             List {
@@ -38,7 +79,7 @@ struct ContentView: View {
                     movieRowView(movie: movie)
                 }
             }
-            .navigationBarTitle("Movie")
+            .navigationBarTitle("Volunteer List")
             .navigationBarItems(trailing: addButton)
             .onAppear() {
                 print("MoviesListView appears. Subscribing to data updates.")

@@ -22,12 +22,29 @@ struct MovieDetailsView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Movie")) {
+            Section(header: Text("Title")) {
                 Text(movie.title)
                 Text(movie.description)
             }
-            Section(header: Text("Year")) {
-                Text(movie.year)
+            Section(header: Text("Time")) {
+                HStack {
+                    if movie.year == "1" {
+                        Text(movie.year)
+                        Text("Hour")
+                    } else {
+                        Text(movie.year)
+                        Text("Hours")
+                    }
+                }
+                HStack {
+                    if movie.minutes >= "2" {
+                        Text(movie.minutes)
+                        Text("Minutes")
+                    } else {
+                        Text(movie.minutes)
+                        Text("Minute")
+                    }
+                }
             }
         }
         .navigationBarTitle(movie.title)
@@ -46,12 +63,12 @@ struct MovieDetailsView: View {
     }
 }
 
-struct MovieDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        let movie = Movie(title: "title movie", description: "this is a sample description", year: "2022")
-        return
-        NavigationView {
-            MovieDetailsView(movie: movie)
-        }
-    }
-}
+//struct MovieDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let movie = Movie(title: "title movie", description: "this is a sample description", year: "2022")
+//        return
+//        NavigationView {
+//            MovieDetailsView(movie: movie)
+//        }
+//    }
+//}
