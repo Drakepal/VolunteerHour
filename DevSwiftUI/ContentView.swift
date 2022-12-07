@@ -25,15 +25,31 @@ struct ContentView: View {
                     .font(.headline)
                 //Text(movie.description)
                 //.font(.subheadline)
-                if movie.year == "" && movie.minutes >= "2" {
-                    HStack {
-                        Text(movie.minutes)
-                        Text("Minutes")
-                    }
-                } else if movie.year == "1" && movie.minutes >= "2" {
+                if movie.year == "1" && movie.minutes >= "2" {
                     HStack {
                         Text(movie.year)
                         Text("hour")
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
+                } else if movie.year == "" && movie.minutes == "1" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("minute")
+                    }
+                    
+                } else if movie.year == "0" && movie.minutes == "1" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("minute")
+                    }
+                } else if movie.year == "0" && movie.minutes >= "2" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
+                } else if movie.year == "" && movie.minutes >= "2" {
+                    HStack {
                         Text(movie.minutes)
                         Text("minutes")
                     }
@@ -41,22 +57,51 @@ struct ContentView: View {
                     HStack {
                         Text(movie.year)
                             .font(.subheadline)
-                        if movie.year >= "2" {
-                            Text("Hours")
-                        }
+                        Text("hours")
                         Text(movie.minutes)
-                        if movie.minutes >= "2" {
-                            Text("Minutes")
-                        }
+                        Text("minutes")
                     }
+                    
                 
-                
-                } else if movie.year == "" && movie.minutes == "1" {
+                }  else if movie.year >= "2" && movie.minutes == "" {
                     HStack {
+                        Text(movie.year)
+                        Text("hours")
+                    }
+                } else if movie.year >= "2" && movie.minutes == "0" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hours")
+                    }
+                }
+                
+                else if movie.year == "1" && movie.minutes == "1" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hour")
+                        Text(movie.minutes)
+                        Text("minute")
+                    }
+                } else if movie.year == "1" && movie.minutes == "" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hour")
+                    }
+                } else if movie.year == "1" && movie.minutes == "0" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hour")
+                    }
+                }
+                else if movie.year >= "2" && movie.minutes == "1" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hours")
                         Text(movie.minutes)
                         Text("minute")
                     }
                 }
+                
                 
 //                    HStack {
 //                        Text(movie.year)

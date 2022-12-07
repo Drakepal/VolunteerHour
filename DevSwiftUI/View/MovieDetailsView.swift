@@ -30,19 +30,24 @@ struct MovieDetailsView: View {
                 HStack {
                     if movie.year == "1" {
                         Text(movie.year)
-                        Text("Hour")
+                        Text("hour")
+                    } else if movie.year == "" {
+                        Text("0 hours")
                     } else {
                         Text(movie.year)
-                        Text("Hours")
+                        Text("hours")
                     }
                 }
                 HStack {
-                    if movie.minutes >= "2" {
+                    if movie.minutes == "1" {
                         Text(movie.minutes)
-                        Text("Minutes")
+                        Text("minute")
+                    } else if movie.minutes == "" {
+                        Text("0 minutes")
+                        
                     } else {
                         Text(movie.minutes)
-                        Text("Minute")
+                        Text("minutes")
                     }
                 }
             }
