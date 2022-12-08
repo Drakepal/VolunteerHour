@@ -6,114 +6,115 @@
 //
 
 import SwiftUI
-import Firebase
+import FirebaseAuth
 
-struct SplashScreen: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var userIsLoggedIn = false
-    
-    
-    var body: some View {
-        if userIsLoggedIn {
-            ContentView()
-        } else {
-            content
-        }
-    }
 
-    var content: some View {
-        VStack {
-            Text("Welcome")
-                .foregroundColor(.black)
-                .font(.system(size: 40, weight: .bold, design: .rounded))
-            
-            TextField("Email", text: $email)
-                .foregroundColor(.black)
-                .textFieldStyle(.plain)
-                .padding(.leading)
-                .placeholder(when: email.isEmpty) {
-                    Text("Email")
-                        .foregroundColor(.black)
-                        .bold()
-                        .padding(.leading)
-                }
-            Rectangle()
-                .frame(width: 350, height: 1)
-                .foregroundColor(.black)
-            
-            SecureField("Password", text: $password)
-                .padding(.leading)
-                .foregroundColor(.black)
-                .textFieldStyle(.plain)
-                .placeholder(when: password.isEmpty) {
-                    Text("Password")
-                        .padding(.leading)
-                        .foregroundColor(.black)
-                        .bold()
-                }
-            
-            
-            Rectangle()
-                .frame(width: 350, height: 1)
-                .foregroundColor(.black)
-            
-            Button {
-                register()
-            } label: {
-                
-                Text("Sign Up")
-                    .foregroundColor(.white)
-                    .bold()
-                    .frame(width: 200, height: 40)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    )
-                
+class AppViewModel: ObservableObject {
+    
+    let auth = Auth.auth()
+    
+    @Published var signedIn = false
+    
+    var isSignedIn: Bool {
+        return auth.currentUser != nil
+    }
+    
+    func signIn(email: String, password: String) {
+        auth.signIn(withEmail: email, password: password) { [weak self] result, error in
+            guard result != nil, error == nil else {
+                return
             }
-            .padding(.top)
-            .offset(y: 100)
-            
-            
-            Button {
-                login()
-            } label: {
-                Text("Already have an account? Login")
-                    .bold()
-                    .foregroundColor(.black)
-            }
-            .padding(.top)
-            .offset(y: 110)
-            
-            
-        }
-        .onAppear {
-            Auth.auth().addStateDidChangeListener { auth, user in
-                if user != nil {
-                    userIsLoggedIn.toggle()
-                }
+            DispatchQueue.main.async {
+                //success
+                self?.signedIn = true
             }
         }
     }
     
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
+    func signUp(email: String, password: String) {
+        auth.createUser(withEmail: email, password: password) { [weak self] result, error in
+            guard result != nil, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                //success
+                self?.signedIn = true
             }
         }
-    }
-    
-    
-    func register() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-        }
+        
     }
 }
 
+
+    struct SplashScreen: View {
+        @EnvironmentObject var viewModel: AppViewModel
+        
+        var body: some View {
+            NavigationView {
+                if viewModel.signedIn {
+                    ContentView()
+                } else {
+                    SignInView()
+                }
+                
+            }
+            .onAppear {
+                viewModel.signedIn = viewModel.isSignedIn
+            }
+        }
+    }
+
+struct SignInView: View {
+    
+    @State var email = ""
+    @State var password = ""
+    
+    @EnvironmentObject var viewModel: AppViewModel
+    
+    
+    var body: some View {
+        
+            VStack {
+                Spacer()
+                Text("Sign In")
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                   Spacer()
+                VStack {
+                    TextField("Email Address", text: $email)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        
+                    
+                    
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        
+                    Button(action: {
+                        guard !email.isEmpty, !password.isEmpty else {
+                            return
+                        }
+                        
+                        viewModel.signIn(email: email, password: password)
+                        
+                        
+                    }, label: {
+                        Text("Sign In")
+                            .foregroundColor(.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                    })
+                    .padding()
+                }
+                .padding()
+                
+                Spacer()
+            }
+            
+        
+    }
+}
 struct SplashScreen_Previews: PreviewProvider {
     static var previews: some View {
         SplashScreen()
@@ -121,15 +122,4 @@ struct SplashScreen_Previews: PreviewProvider {
 }
 
 
-extension View {
-    func placeholder<Content: View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content) -> some View {
 
-        ZStack(alignment: alignment) {
-            placeholder().opacity(shouldShow ? 1 : 0)
-            self
-        }
-    }
-}
