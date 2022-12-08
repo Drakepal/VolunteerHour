@@ -50,8 +50,11 @@ class MovieViewModel: ObservableObject {
         }
     }
     private func updateOrAddMovie() {
+        NSLog("Meow");
+        
+        
         if let _ = movie.id {
-            
+            updateMovie(movie);
         } else {
             addMovie(movie)
         }

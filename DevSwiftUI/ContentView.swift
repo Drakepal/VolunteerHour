@@ -73,9 +73,7 @@ struct ContentView: View {
                         Text(movie.year)
                         Text("hours")
                     }
-                }
-                
-                else if movie.year == "1" && movie.minutes == "1" {
+                } else if movie.year == "1" && movie.minutes == "1" {
                     HStack {
                         Text(movie.year)
                         Text("hour")
@@ -92,8 +90,7 @@ struct ContentView: View {
                         Text(movie.year)
                         Text("hour")
                     }
-                }
-                else if movie.year >= "2" && movie.minutes == "1" {
+                } else if movie.year >= "2" && movie.minutes == "1" {
                     HStack {
                         Text(movie.year)
                         Text("hours")
