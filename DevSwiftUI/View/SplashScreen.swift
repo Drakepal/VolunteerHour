@@ -29,13 +29,14 @@ class AppViewModel: ObservableObject {
                 self?.signedIn = true
             }
         }
-        func signOut() {
-            try? auth.signOut()
-        
-            self.signedIn = false
-        }
-        
     }
+    func signOut() {
+        try? auth.signOut()
+        
+        self.signedIn = false
+    }
+    
+    
     
     func signUp(email: String, password: String) {
         auth.createUser(withEmail: email, password: password) { [weak self] result, error in
@@ -178,8 +179,6 @@ struct SignUpView: View {
                 
                 Spacer()
             }
-            
-        
     }
 }
 struct SplashScreen_Previews: PreviewProvider {
