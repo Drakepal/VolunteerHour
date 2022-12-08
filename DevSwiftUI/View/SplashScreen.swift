@@ -29,6 +29,12 @@ class AppViewModel: ObservableObject {
                 self?.signedIn = true
             }
         }
+        func signOut() {
+            try? auth.signOut()
+        
+            self.signedIn = false
+        }
+        
     }
     
     func signUp(email: String, password: String) {
@@ -83,13 +89,17 @@ struct SignInView: View {
                     TextField("Email Address", text: $email)
                         .padding()
                         .background(Color(.secondarySystemBackground))
-                        
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
                     
                     
                     SecureField("Password", text: $password)
                         .padding()
                         .background(Color(.secondarySystemBackground))
-                        
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
+                    
+                    
                     Button(action: {
                         guard !email.isEmpty, !password.isEmpty else {
                             return
@@ -100,6 +110,63 @@ struct SignInView: View {
                         
                     }, label: {
                         Text("Sign In")
+                            .foregroundColor(.white)
+                            .frame(width: 200, height: 50)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                    })
+                    
+                    NavigationLink("Create Account", destination: SignUpView())
+                        .padding()
+                }
+                .padding()
+                
+                Spacer()
+            }
+            
+        
+    }
+}
+struct SignUpView: View {
+    
+    @State var email = ""
+    @State var password = ""
+    
+    @EnvironmentObject var viewModel: AppViewModel
+    
+    
+    var body: some View {
+        
+            VStack {
+                Spacer()
+                Text("Sign Up")
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                   Spacer()
+                VStack {
+                    TextField("Email Address", text: $email)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
+                    
+                    
+                    SecureField("Password", text: $password)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
+                    
+                    
+                    Button(action: {
+                        guard !email.isEmpty, !password.isEmpty else {
+                            return
+                        }
+                        
+                        viewModel.signUp(email: email, password: password)
+                        
+                        
+                    }, label: {
+                        Text("Create Account")
                             .foregroundColor(.white)
                             .frame(width: 200, height: 50)
                             .background(Color.accentColor)
