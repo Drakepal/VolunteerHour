@@ -20,6 +20,7 @@
 		7290586F292567A1006F8B5C /* MoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290586E292567A1006F8B5C /* MoviesViewModel.swift */; };
 		72905872292569B0006F8B5C /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72905871292569B0006F8B5C /* MovieDetailsView.swift */; };
 		7290587429257296006F8B5C /* MovieEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7290587329257296006F8B5C /* MovieEditView.swift */; };
+		72C9A656294263A5008416EC /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C9A655294263A5008416EC /* SplashScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		7290586E292567A1006F8B5C /* MoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewModel.swift; sourceTree = "<group>"; };
 		72905871292569B0006F8B5C /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
 		7290587329257296006F8B5C /* MovieEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEditView.swift; sourceTree = "<group>"; };
+		72C9A655294263A5008416EC /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 			children = (
 				72905871292569B0006F8B5C /* MovieDetailsView.swift */,
 				7290587329257296006F8B5C /* MovieEditView.swift */,
+				72C9A655294263A5008416EC /* SplashScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72C9A656294263A5008416EC /* SplashScreen.swift in Sources */,
 				72905872292569B0006F8B5C /* MovieDetailsView.swift in Sources */,
 				7290585429255DFD006F8B5C /* ContentView.swift in Sources */,
 				7290585229255DFD006F8B5C /* DevSwiftUIApp.swift in Sources */,

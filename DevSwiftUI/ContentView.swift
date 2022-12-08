@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     
     @StateObject var viewModel = MoviesViewModel()
@@ -115,22 +116,28 @@ struct ContentView: View {
     
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(viewModel.movies) { movie in
-                    movieRowView(movie: movie)
+        
+            
+            NavigationView {
+                
+                List {
+                    
+                    ForEach(viewModel.movies) { movie in
+                        movieRowView(movie: movie)
+                    }
+                }
+                
+                .navigationBarTitle("Volunteer List")
+                
+                .navigationBarItems(trailing: addButton)
+                .onAppear() {
+                    print("MoviesListView appears. Subscribing to data updates.")
+                    self.viewModel.subscribe()
+                }
+                .sheet(isPresented: self.$presentAddMovieSheet) {
+                    MovieEditView()
                 }
             }
-            .navigationBarTitle("Volunteer List")
-            .navigationBarItems(trailing: addButton)
-            .onAppear() {
-                print("MoviesListView appears. Subscribing to data updates.")
-                self.viewModel.subscribe()
-            }
-            .sheet(isPresented: self.$presentAddMovieSheet) {
-                MovieEditView()
-            }
-        }
     }
 }
 
