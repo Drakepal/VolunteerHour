@@ -28,14 +28,19 @@ struct ContentView: View {
     
     private var signOutButton: some View {
         
-      NavigationLink(destination: SplashScreen(), isActive: $isLinkActive ){
-            Button(action: {
-                authModel.signOut()
-                self.isLinkActive = true
-            }, label: {
-                Text("Sign Out")
-            })
-        }
+//      NavigationLink(destination: SplashScreen(), isActive: $isLinkActive ){
+//            Button(action: {
+//                authModel.signOut()
+//                self.isLinkActive = true
+//            }, label: {
+//                Text("Sign Out")
+//            })
+//        }
+        Button(action: {
+            authModel.signOut()
+        }, label: {
+            Text("Sign Out")
+        })
     }
     
     private func movieRowView(movie: Movie) -> some View {
