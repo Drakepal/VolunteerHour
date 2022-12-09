@@ -30,7 +30,11 @@ class AppViewModel: ObservableObject {
             }
         }
     }
+    
     func signOut() {
+        NSLog("herez")
+        
+        
         try? auth.signOut()
         
         self.signedIn = false
@@ -53,23 +57,23 @@ class AppViewModel: ObservableObject {
 }
 
 
-    struct SplashScreen: View {
-        @EnvironmentObject var viewModel: AppViewModel
-        
-        var body: some View {
-            NavigationView {
-                if viewModel.signedIn {
-                    ContentView()
-                } else {
-                    SignInView()
-                }
-                
+struct SplashScreen: View {
+    @EnvironmentObject var viewModel: AppViewModel
+    
+    var body: some View {
+        NavigationView {
+            if viewModel.signedIn {
+                ContentView()
+            } else {
+                SignInView()
             }
-            .onAppear {
-                viewModel.signedIn = viewModel.isSignedIn
-            }
+            
+        }
+        .onAppear {
+            viewModel.signedIn = viewModel.isSignedIn
         }
     }
+}
 
 struct SignInView: View {
     

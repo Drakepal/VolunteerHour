@@ -6,16 +6,35 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 
 struct ContentView: View {
     
+    @EnvironmentObject var authModel: AppViewModel
+    
+    @State var isLinkActive = false
+    
     @StateObject var viewModel = MoviesViewModel()
     @State var presentAddMovieSheet = false
+
+    
     
     private var addButton: some View {
         Button(action: { self.presentAddMovieSheet.toggle() }) {
             Image(systemName: "plus")
+        }
+    }
+    
+    private var signOutButton: some View {
+        
+      NavigationLink(destination: SplashScreen(), isActive: $isLinkActive ){
+            Button(action: {
+                authModel.signOut()
+                self.isLinkActive = true
+            }, label: {
+                Text("Sign Out")
+            })
         }
     }
     
@@ -129,7 +148,7 @@ struct ContentView: View {
                 
                 .navigationBarTitle("Volunteer List")
                 
-                .navigationBarItems(trailing: addButton)
+                .navigationBarItems(leading: signOutButton, trailing: addButton)
                 .onAppear() {
                     print("MoviesListView appears. Subscribing to data updates.")
                     self.viewModel.subscribe()
