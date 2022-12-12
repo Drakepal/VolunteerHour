@@ -122,7 +122,32 @@ struct ContentView: View {
                         Text(movie.minutes)
                         Text("minute")
                     }
+                } else if movie.year >= "2" && movie.minutes == "12" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hours")
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
+                } else if movie.year == "1" && movie.minutes == "12" {
+                    HStack {
+                        Text(movie.year)
+                        Text("hour")
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
+                } else if movie.year == "" && movie.minutes == "12" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
+                } else if movie.year == "0" && movie.minutes == "12" {
+                    HStack {
+                        Text(movie.minutes)
+                        Text("minutes")
+                    }
                 }
+                     
                 
                 
 //                    HStack {
